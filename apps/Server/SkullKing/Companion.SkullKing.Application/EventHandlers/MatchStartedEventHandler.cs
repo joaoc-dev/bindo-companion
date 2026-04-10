@@ -1,13 +1,9 @@
-using Companion.Application.Common;
 using Companion.Domain.Sessions.Events;
-using Companion.SkullKing.Domain;
-using Companion.SkullKing.Domain.Repositories;
 using MediatR;
 
 namespace Companion.SkullKing.Application.EventHandlers;
 
-public class MatchStartedEventHandler(ISkullKingMatchRepository repository, IUnitOfWork uow)
-    : INotificationHandler<MatchStartedEvent>
+public class MatchStartedEventHandler : INotificationHandler<MatchStartedEvent>
 {
     private const string Slug = "skull-king";
 

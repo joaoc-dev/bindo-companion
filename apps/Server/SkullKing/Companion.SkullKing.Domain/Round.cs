@@ -47,7 +47,7 @@ public class Round : Entity<Guid>
         entry.Complete(tricksWon, bonuses, score);
     }
 
-    internal void Finalize()
+    internal void Close()
     {
         if (Status != RoundStatus.Open)
             throw new InvalidOperationException("Round is already finalized.");

@@ -9,11 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\bindo-companion.Server\bindo-companion.Server.csproj" />
+    <ProjectReference Include="..\apps\Server\Companion\Companion.Presentation\Companion.Presentation.csproj" />
+    <ProjectReference Include="..\apps\Server\SkullKing\Companion.SkullKing.Presentation\Companion.SkullKing.Presentation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.JavaScript" Version="13.2.1" />
+    <PackageReference Include="Aspire.Hosting.MongoDB" Version="13.2.2" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.*" />
   </ItemGroup>
 </Project>

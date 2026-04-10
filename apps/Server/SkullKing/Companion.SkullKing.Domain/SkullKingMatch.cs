@@ -77,7 +77,7 @@ public class SkullKingMatch : AggregateRoot<MatchId>
     public void FinalizeRound(int roundNumber)
     {
         var round = GetRound(roundNumber);
-        round.Finalize();
+        round.Close();
         Raise(new RoundFinalizedEvent(Id, roundNumber));
     }
 
@@ -93,7 +93,7 @@ public class SkullKingMatch : AggregateRoot<MatchId>
             .Where(r => r.Status == RoundStatus.Finalized)
             .SelectMany(r => r.Entries)
             .GroupBy(e => e.PlayerId)
-            .ToDictionary(g => g.Key, g => g.Sum(e => e.Score.Value));
+            .ToDictionary(g => g.Key, g => g.Sum(e => e.Score?.Value ?? 0));
     }
 
     private PlayerId GetLeader()

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Companion.SkullKing.Application.Queries;
 
-public record RoundEntryDto(Guid PlayerId, int Bid, int TricksWon, int Score);
+public record RoundEntryDto(Guid PlayerId, int Bid, int? TricksWon, int? Score);
 public record RoundDto(int RoundNumber, string Status, IReadOnlyList<RoundEntryDto> Entries);
 public record PlayerTotalDto(Guid PlayerId, int Total);
 
@@ -27,7 +27,7 @@ public class GetSkullKingScoreboardQueryHandler(ISkullKingMatchRepository reposi
         var rounds = match.Rounds.Select(r => new RoundDto(
             r.RoundNumber,
             r.Status.ToString(),
-            r.Entries.Select(e => new RoundEntryDto(e.PlayerId.Value, e.Bid.Value, e.TricksWon.Value, e.Score.Value)).ToList()
+            [.. r.Entries.Select(e => new RoundEntryDto(e.PlayerId.Value, e.Bid.Value, e.TricksWon?.Value, e.Score?.Value))]
         )).ToList();
 
         var totals = match.GetTotals()
