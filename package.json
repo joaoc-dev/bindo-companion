@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "scripts": {
+    "prepare": "husky && (dotnet tool restore || exit 0)"
+  },
+  "lint-staged": {
+    "**/*.{cs,csproj}": "dotnet csharpier format",
+    "apps/Client/Companion.WebApp/**/*.{ts,tsx,css}": "./apps/Client/Companion.WebApp/node_modules/.bin/eslint --fix --config ./apps/Client/Companion.WebApp/eslint.config.js"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0"
+  }
+}
