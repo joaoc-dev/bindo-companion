@@ -3,7 +3,7 @@ early_access: false
 
 reviews:
   profile: chill
-  auto_approve: false
+  request_changes_workflow: false
   high_level_summary: true
   high_level_summary_in_walkthrough: false
   review_status: true
@@ -15,7 +15,7 @@ reviews:
   suggested_labels: false
   auto_assign_reviewers: false
   poem: false
-  fortune: false
+  in_progress_fortune: false
   abort_on_close: true
 
   path_instructions:
@@ -54,7 +54,7 @@ reviews:
   auto_review:
     enabled: true
     drafts: false
-    incremental: true
+    auto_incremental_review: true
     ignore_title_keywords: []
     labels: []
     base_branches: []
@@ -83,8 +83,7 @@ reviews:
     shellcheck:
       enabled: true
     ast-grep:
-      enabled: true
-      essentials: true
+      essential_rules: true
     ruff:
       enabled: false
     flake8:
@@ -123,7 +122,7 @@ reviews:
       enabled: false
     sqlfluff:
       enabled: false
-    fortitude-lint:
+    fortitudeLint:
       enabled: false
     circleci:
       enabled: false
@@ -131,19 +130,19 @@ reviews:
       enabled: false
     clang:
       enabled: false
-    prisma-lint:
+    prismaLint:
       enabled: false
     brakeman:
       enabled: false
     luacheck:
       enabled: false
-    shopify-theme-check:
+    shopifyThemeCheck:
       enabled: false
     blinter:
       enabled: false
-    smarty-lint:
+    smartyLint:
       enabled: false
-    ember-template-lint:
+    emberTemplateLint:
       enabled: false
     psscriptanalyzer:
       enabled: false
