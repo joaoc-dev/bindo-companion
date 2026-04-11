@@ -46,7 +46,7 @@ reviews:
         Ensure tests follow Arrange-Act-Assert pattern, cover edge
         cases, use descriptive naming, and don't test implementation
         details. Verify xUnit conventions are followed.
-    - path: 'bindo-companion.AppHost/**'
+    - path: 'AppHost/**'
       instructions: >
         Verify Aspire resource wiring (Postgres, MongoDB, APIs, Vite
         frontend) is correct and follows .NET Aspire conventions.
