@@ -1,6 +1,8 @@
 {
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "prepare": "husky && (dotnet tool restore || exit 0)",
     "generate:api": "orval --config orval.config.ts",
@@ -19,5 +21,12 @@
     "orval": "7.17.0",
     "tsx": "^4.19.2",
     "typescript": "~5.9.3"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.2"
   }
 }
