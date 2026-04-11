@@ -36,6 +36,23 @@
 **/.env.*.local
 
 ######################################################################
+# Orval / repo-root Node (OpenAPI client generation)
+######################################################################
+
+# OpenAPI polling / watch scripts may write this (see patchnuts-style workflows).
+.openapi-cache.json
+**/.openapi-cache.json
+
+# Generated API client (orval); regenerate with `npm run generate:api` (APIs must be up).
+packages/api-client/api/generated/
+
+# OpenAPI spec snapshots from `npm run export:openapi` (optional local cache).
+openapi-companion.json
+openapi-skull-king.json
+
+**/.eslintcache
+
+######################################################################
 # OS noise
 ######################################################################
 

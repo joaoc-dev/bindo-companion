@@ -1,3 +1,4 @@
+import { createSession } from '@bindo/api-client/api/generated/companion/sessions/sessions';
 import { useEffect, useState } from 'react';
 import './App.css';
 import aspireLogo from '/Aspire.png';
@@ -16,6 +17,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [useCelsius, setUseCelsius] = useState(false);
+  const [orvalNote, setOrvalNote] = useState<string | null>(null);
 
   const fetchWeatherForecast = async () => {
     setLoading(true);
@@ -44,6 +46,22 @@ function App() {
     fetchWeatherForecast();
   }, []);
 
+  const smokeOrvalCompanion = async () => {
+    setOrvalNote(null);
+    try {
+      const res = await createSession({ name: 'Orval smoke' });
+      if (res.status === 201 && res.data) {
+        setOrvalNote(`Session created (Orval client): ${res.data.id}`);
+      }
+      else {
+        setOrvalNote(`Unexpected response: ${res.status}`);
+      }
+    }
+    catch (e) {
+      setOrvalNote(e instanceof Error ? e.message : 'Orval smoke request failed');
+    }
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString(undefined, {
       weekday: 'short',
@@ -69,6 +87,22 @@ function App() {
       </header>
 
       <main className="main-content">
+        <section className="weather-section" aria-labelledby="orval-heading">
+          <div className="card">
+            <div className="section-header">
+              <h2 id="orval-heading" className="section-title">Companion API (Orval)</h2>
+              <button type="button" className="refresh-button" onClick={() => void smokeOrvalCompanion()}>
+                Create session via generated client
+              </button>
+            </div>
+            {orvalNote && (
+              <p className="weather-summary" role="status">
+                {orvalNote}
+              </p>
+            )}
+          </div>
+        </section>
+
         <section className="weather-section" aria-labelledby="weather-heading">
           <div className="card">
             <div className="section-header">
