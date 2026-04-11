@@ -46,7 +46,7 @@
 # Generated API client (orval); regenerate with `npm run generate:api` (APIs must be up).
 packages/api-client/api/generated/
 
-# OpenAPI spec snapshots from `npm run export:openapi` (optional local cache).
+# OpenAPI spec snapshots written by `watch:api` (Aspire api-watcher) or `tsx scripts/export-openapi.ts`.
 openapi-companion.json
 openapi-skull-king.json
 
