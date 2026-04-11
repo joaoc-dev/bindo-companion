@@ -1,0 +1,39 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directories:
+      - /
+      - /apps/Client/Companion.WebApp
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: chore
+    groups:
+      npm-deps:
+        update-types: [minor, patch]
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: nuget
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: chore
+    groups:
+      nuget-deps:
+        update-types: [minor, patch]
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: chore
