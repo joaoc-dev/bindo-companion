@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore .NET tools
+        run: dotnet tool restore
+
+      - name: CSharpier (check only)
+        run: dotnet csharpier check .
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: apps/Client/Companion.WebApp/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: apps/Client/Companion.WebApp
+        run: npm ci
+
+      - name: ESLint (check only)
+        working-directory: apps/Client/Companion.WebApp
+        run: npm run lint
+
+      - name: TypeScript check
+        working-directory: apps/Client/Companion.WebApp
+        run: npm run typecheck
