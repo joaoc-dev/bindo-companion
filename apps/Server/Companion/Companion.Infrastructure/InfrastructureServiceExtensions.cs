@@ -13,12 +13,14 @@ public static class InfrastructureServiceExtensions
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        string connectionString)
+        string connectionString
+    )
     {
-        services.AddDbContext<CompanionDbContext>(options =>
-            options.UseNpgsql(connectionString));
+        services.AddDbContext<CompanionDbContext>(options => options.UseNpgsql(connectionString));
 
-        services.AddScoped<IUnitOfWork>(sp => new UnitOfWork(sp.GetRequiredService<CompanionDbContext>()));
+        services.AddScoped<IUnitOfWork>(sp => new UnitOfWork(
+            sp.GetRequiredService<CompanionDbContext>()
+        ));
         services.AddScoped<ISessionRepository, SessionRepository>();
         services.AddScoped<IPlayerRepository, PlayerRepository>();
         services.AddScoped<IGameDefinitionRepository, GameDefinitionRepository>();

@@ -11,12 +11,9 @@ public class PlayerConfiguration : IEntityTypeConfiguration<Player>
         builder.ToTable("players");
 
         builder.HasKey(p => p.Id);
-        builder.Property(p => p.Id)
-            .HasConversion(id => id.Value, value => new PlayerId(value));
+        builder.Property(p => p.Id).HasConversion(id => id.Value, value => new PlayerId(value));
 
-        builder.Property(p => p.DisplayName)
-            .HasMaxLength(100)
-            .IsRequired();
+        builder.Property(p => p.DisplayName).HasMaxLength(100).IsRequired();
 
         builder.Ignore(p => p.DomainEvents);
     }

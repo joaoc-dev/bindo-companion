@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -15,5 +14,4 @@
     <ProjectReference Include="..\Companion.SkullKing.Application\Companion.SkullKing.Application.csproj" />
     <ProjectReference Include="..\Companion.SkullKing.Infrastructure\Companion.SkullKing.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

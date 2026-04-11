@@ -9,8 +9,10 @@ public record Bid
     public static Bid Of(int value, int roundNumber)
     {
         if (value < 0 || value > roundNumber)
-            throw new ArgumentOutOfRangeException(nameof(value),
-                $"Bid must be between 0 and {roundNumber} for round {roundNumber}.");
+            throw new ArgumentOutOfRangeException(
+                nameof(value),
+                $"Bid must be between 0 and {roundNumber} for round {roundNumber}."
+            );
         return new Bid(value);
     }
 }

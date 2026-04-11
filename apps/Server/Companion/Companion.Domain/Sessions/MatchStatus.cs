@@ -4,5 +4,5 @@ public enum MatchStatus
 {
     InProgress,
     Completed,
-    Abandoned
+    Abandoned,
 }

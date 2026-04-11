@@ -12,17 +12,25 @@ public static class PlayerEndpoints
     {
         var players = routes.MapGroup("players").WithTags("Players");
 
-        players.MapPost("", async (CreatePlayerRequest req, IMediator mediator) =>
-        {
-            var id = await mediator.Send(new CreatePlayerCommand(req.DisplayName));
-            return Results.Created($"/api/players/{id.Value}", new PlayerCreatedResponse(id.Value));
-        })
-        .WithName("CreatePlayer")
-        .Produces<PlayerCreatedResponse>(StatusCodes.Status201Created);
+        players
+            .MapPost(
+                "",
+                async (CreatePlayerRequest req, IMediator mediator) =>
+                {
+                    var id = await mediator.Send(new CreatePlayerCommand(req.DisplayName));
+                    return Results.Created(
+                        $"/api/players/{id.Value}",
+                        new PlayerCreatedResponse(id.Value)
+                    );
+                }
+            )
+            .WithName("CreatePlayer")
+            .Produces<PlayerCreatedResponse>(StatusCodes.Status201Created);
 
         return routes;
     }
 }
 
 record CreatePlayerRequest(string DisplayName);
+
 record PlayerCreatedResponse(Guid Id);

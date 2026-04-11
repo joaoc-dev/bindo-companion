@@ -20,23 +20,31 @@ public class SkullKingMatch : AggregateRoot<MatchId>
     public static SkullKingMatch Initialize(MatchId matchId, int playerCount)
     {
         if (playerCount is < 2 or > 6)
-            throw new ArgumentOutOfRangeException(nameof(playerCount), "Skull King requires 2 to 6 players.");
+            throw new ArgumentOutOfRangeException(
+                nameof(playerCount),
+                "Skull King requires 2 to 6 players."
+            );
 
         return new SkullKingMatch
         {
             Id = matchId,
             PlayerCount = playerCount,
-            TotalRounds = 10
+            TotalRounds = 10,
         };
     }
 
-    public static SkullKingMatch Rehydrate(MatchId id, int playerCount, int totalRounds, IEnumerable<Round> rounds)
+    public static SkullKingMatch Rehydrate(
+        MatchId id,
+        int playerCount,
+        int totalRounds,
+        IEnumerable<Round> rounds
+    )
     {
         var match = new SkullKingMatch
         {
             Id = id,
             PlayerCount = playerCount,
-            TotalRounds = totalRounds
+            TotalRounds = totalRounds,
         };
         match._rounds.AddRange(rounds);
         return match;
@@ -62,13 +70,19 @@ public class SkullKingMatch : AggregateRoot<MatchId>
     }
 
     public RoundScore SubmitResult(
-        int roundNumber, PlayerId playerId,
-        TrickCount tricksWon, BonusCollection bonuses,
-        ISkullKingScoreCalculator calculator)
+        int roundNumber,
+        PlayerId playerId,
+        TrickCount tricksWon,
+        BonusCollection bonuses,
+        ISkullKingScoreCalculator calculator
+    )
     {
         var round = GetRound(roundNumber);
-        var entry = round.Entries.FirstOrDefault(e => e.PlayerId == playerId)
-            ?? throw new InvalidOperationException($"No bid found for player {playerId.Value} in round {roundNumber}.");
+        var entry =
+            round.Entries.FirstOrDefault(e => e.PlayerId == playerId)
+            ?? throw new InvalidOperationException(
+                $"No bid found for player {playerId.Value} in round {roundNumber}."
+            );
         var score = calculator.Calculate(entry.Bid, tricksWon, bonuses, roundNumber);
         round.SubmitResult(playerId, tricksWon, bonuses, score);
         return score;

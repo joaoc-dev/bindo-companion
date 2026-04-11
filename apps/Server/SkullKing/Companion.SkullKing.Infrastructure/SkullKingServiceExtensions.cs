@@ -9,14 +9,19 @@ namespace Companion.SkullKing.Infrastructure;
 
 public static class SkullKingServiceExtensions
 {
-    public static IServiceCollection AddSkullKing(this IServiceCollection services, string connectionString, string databaseName = "skull_king")
+    public static IServiceCollection AddSkullKing(
+        this IServiceCollection services,
+        string connectionString,
+        string databaseName = "skull_king"
+    )
     {
         services.AddSingleton<IMongoClient>(_ => new MongoClient(connectionString));
 
         services.AddSingleton(sp =>
             sp.GetRequiredService<IMongoClient>()
-              .GetDatabase(databaseName)
-              .GetCollection<SkullKingMatchDocument>("skull_king_matches"));
+                .GetDatabase(databaseName)
+                .GetCollection<SkullKingMatchDocument>("skull_king_matches")
+        );
 
         services.AddScoped<ISkullKingMatchRepository, SkullKingRepository>();
         services.AddScoped<ISkullKingScoreCalculator, SkullKingScoreCalculator>();

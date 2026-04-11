@@ -25,12 +25,16 @@ public class Session : AggregateRoot<SessionId>
             Name = name,
             Pin = SessionPin.Generate(),
             Status = SessionStatus.Open,
-            CreatedAt = DateTimeOffset.UtcNow
+            CreatedAt = DateTimeOffset.UtcNow,
         };
         return session;
     }
 
-    public Match StartMatch(GameId gameId, string gameSlug, IEnumerable<(PlayerId PlayerId, string DisplayName)> players)
+    public Match StartMatch(
+        GameId gameId,
+        string gameSlug,
+        IEnumerable<(PlayerId PlayerId, string DisplayName)> players
+    )
     {
         if (Status != SessionStatus.Open)
             throw new InvalidOperationException("Cannot start a match in a closed session.");

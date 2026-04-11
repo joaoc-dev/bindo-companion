@@ -17,7 +17,12 @@ public class RoundEntry : Entity<Guid>
     private RoundEntry() { }
 
     internal static RoundEntry PlaceBid(PlayerId playerId, Bid bid) =>
-        new() { Id = Guid.NewGuid(), PlayerId = playerId, Bid = bid };
+        new()
+        {
+            Id = Guid.NewGuid(),
+            PlayerId = playerId,
+            Bid = bid,
+        };
 
     internal void Complete(TrickCount tricksWon, BonusCollection bonuses, RoundScore score)
     {
@@ -26,7 +31,14 @@ public class RoundEntry : Entity<Guid>
         Score = score;
     }
 
-    public static RoundEntry Rehydrate(Guid id, PlayerId playerId, Bid bid, TrickCount? tricksWon, BonusCollection? bonuses, RoundScore? score) =>
+    public static RoundEntry Rehydrate(
+        Guid id,
+        PlayerId playerId,
+        Bid bid,
+        TrickCount? tricksWon,
+        BonusCollection? bonuses,
+        RoundScore? score
+    ) =>
         new()
         {
             Id = id,
@@ -34,6 +46,6 @@ public class RoundEntry : Entity<Guid>
             Bid = bid,
             TricksWon = tricksWon,
             Bonuses = bonuses,
-            Score = score
+            Score = score,
         };
 }
