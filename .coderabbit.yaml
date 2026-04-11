@@ -1,0 +1,165 @@
+language: en-US
+early_access: false
+
+reviews:
+  profile: chill
+  auto_approve: false
+  high_level_summary: true
+  high_level_summary_in_walkthrough: false
+  review_status: true
+  collapse_walkthrough: false
+  sequence_diagrams: true
+  assess_linked_issues: true
+  related_issues: true
+  related_prs: true
+  suggested_labels: false
+  auto_assign_reviewers: false
+  poem: false
+  fortune: false
+  abort_on_close: true
+
+  path_instructions:
+    - path: 'apps/Server/**/*.cs'
+      instructions: >
+        Review C# code for Clean Architecture compliance, SOLID principles,
+        and .NET conventions. Verify proper use of MediatR handlers,
+        FluentValidation validators, and EF Core patterns. Ensure
+        Presentation layer only contains endpoint definitions with no
+        business logic.
+    - path: 'apps/Server/**/Companion.*.Domain/**/*.cs'
+      instructions: >
+        Domain layer must remain free of infrastructure dependencies.
+        Verify entities use value objects where appropriate and domain
+        events are raised correctly.
+    - path: 'apps/Server/**/Companion.*.Infrastructure/**/*.cs'
+      instructions: >
+        Verify repository implementations, EF Core configurations,
+        and MongoDB mappings follow persistence best practices. Check
+        for proper dependency injection registration.
+    - path: 'apps/Client/Companion.WebApp/src/**/*.{ts,tsx}'
+      instructions: >
+        Review TypeScript and React code for best practices, proper
+        typing, component composition, and hook usage. Ensure no
+        business logic leaks into UI components.
+    - path: 'tests/**/*.cs'
+      instructions: >
+        Ensure tests follow Arrange-Act-Assert pattern, cover edge
+        cases, use descriptive naming, and don't test implementation
+        details. Verify xUnit conventions are followed.
+    - path: 'bindo-companion.AppHost/**'
+      instructions: >
+        Verify Aspire resource wiring (Postgres, MongoDB, APIs, Vite
+        frontend) is correct and follows .NET Aspire conventions.
+
+  auto_review:
+    enabled: true
+    drafts: false
+    incremental: true
+    ignore_title_keywords: []
+    labels: []
+    base_branches: []
+
+  finishing_touches:
+    docstrings:
+      enabled: true
+    unit_tests:
+      enabled: true
+
+  tools:
+    eslint:
+      enabled: true
+    biome:
+      enabled: true
+    markdownlint:
+      enabled: true
+    yamllint:
+      enabled: true
+    gitleaks:
+      enabled: true
+    trufflehog:
+      enabled: true
+    languagetool:
+      enabled: true
+    shellcheck:
+      enabled: true
+    ast-grep:
+      enabled: true
+      essentials: true
+    ruff:
+      enabled: false
+    flake8:
+      enabled: false
+    pylint:
+      enabled: false
+    golangci-lint:
+      enabled: false
+    rubocop:
+      enabled: false
+    phpstan:
+      enabled: false
+    phpmd:
+      enabled: false
+    phpcs:
+      enabled: false
+    swiftlint:
+      enabled: false
+    detekt:
+      enabled: false
+    clippy:
+      enabled: false
+    pmd:
+      enabled: false
+    checkov:
+      enabled: false
+    tflint:
+      enabled: false
+    hadolint:
+      enabled: false
+    buf:
+      enabled: false
+    regal:
+      enabled: false
+    actionlint:
+      enabled: false
+    sqlfluff:
+      enabled: false
+    fortitude-lint:
+      enabled: false
+    circleci:
+      enabled: false
+    cppcheck:
+      enabled: false
+    clang:
+      enabled: false
+    prisma-lint:
+      enabled: false
+    brakeman:
+      enabled: false
+    luacheck:
+      enabled: false
+    shopify-theme-check:
+      enabled: false
+    blinter:
+      enabled: false
+    smarty-lint:
+      enabled: false
+    ember-template-lint:
+      enabled: false
+    psscriptanalyzer:
+      enabled: false
+    checkmake:
+      enabled: false
+
+chat:
+  auto_reply: true
+
+knowledge_base:
+  opt_out: false
+  learnings:
+    scope: auto
+  issues:
+    scope: auto
+  code_guidelines:
+    enabled: true
+  web_search:
+    enabled: true
