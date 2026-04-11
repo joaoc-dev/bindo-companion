@@ -111,7 +111,9 @@
 .logo {
   height: 5rem;
   width: auto;
-  transition: transform 300ms ease, filter 300ms ease;
+  transition:
+    transform 300ms ease,
+    filter 300ms ease;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
@@ -330,19 +332,19 @@
   position: relative;
 }
 
-.toggle-option[aria-pressed="true"] {
+.toggle-option[aria-pressed='true'] {
   background: linear-gradient(135deg, var(--accent-gradient-start) 0%, var(--accent-gradient-end) 100%);
   color: white;
   box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
-.toggle-option[aria-pressed="false"]:hover {
+.toggle-option[aria-pressed='false']:hover {
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
 }
 
 @media (prefers-color-scheme: light) {
-  .toggle-option[aria-pressed="false"]:hover {
+  .toggle-option[aria-pressed='false']:hover {
     background: rgba(102, 126, 234, 0.1);
   }
 }
@@ -368,7 +370,10 @@
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.3s ease;
   box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
   min-width: 140px;
   white-space: nowrap;
@@ -532,7 +537,9 @@
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
   border-bottom: 2px solid transparent;
   font-size: 0.875rem;
   padding-bottom: 0.125rem;
@@ -635,7 +642,9 @@
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
   border-bottom: 2px solid transparent;
   font-size: 0.875rem;
 }
@@ -665,7 +674,9 @@
 }
 
 .github-link img {
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
   filter: brightness(0) invert(1);
 }
 
@@ -674,7 +685,7 @@
     filter: brightness(0) invert(0);
     opacity: 0.7;
   }
-  
+
   .github-link:hover img {
     opacity: 1;
   }
@@ -791,4 +802,3 @@
   outline: 3px solid var(--accent-gradient-end);
   outline-offset: 2px;
 }
-
