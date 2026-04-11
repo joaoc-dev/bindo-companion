@@ -21,12 +21,39 @@ jobs:
       - name: CSharpier (check only)
         run: dotnet csharpier check .
 
+      - name: Start APIs for Orval
+        env:
+          ASPNETCORE_ENVIRONMENT: Development
+        run: |
+          set -e
+          dotnet run --project apps/Server/Companion/Companion.Presentation/Companion.Presentation.csproj --no-launch-profile --urls http://127.0.0.1:5100 > /tmp/companion-api.log 2>&1 &
+          dotnet run --project apps/Server/SkullKing/Companion.SkullKing.Presentation/Companion.SkullKing.Presentation.csproj --no-launch-profile --urls http://127.0.0.1:5101 > /tmp/skull-king-api.log 2>&1 &
+          for i in $(seq 1 90); do
+            if curl -sf http://127.0.0.1:5100/openapi/v1.json >/dev/null \
+              && curl -sf http://127.0.0.1:5101/openapi/v1.json >/dev/null; then
+              echo "OpenAPI endpoints ready."
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Timeout waiting for APIs. Logs:"
+          cat /tmp/companion-api.log /tmp/skull-king-api.log || true
+          exit 1
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: apps/Client/Companion.WebApp/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            apps/Client/Companion.WebApp/package-lock.json
+
+      - name: Install root dependencies (Orval)
+        run: npm ci
+
+      - name: Generate API client (Orval)
+        run: npm run generate:api
 
       - name: Install frontend dependencies
         working-directory: apps/Client/Companion.WebApp
