@@ -12,8 +12,7 @@ public class Session : AggregateRoot<SessionId>
     public SessionStatus Status { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }
 
-    private readonly List<Match> _matches = [];
-    public IReadOnlyList<Match> Matches => _matches.AsReadOnly();
+    public ICollection<Match> Matches { get; private set; } = new List<Match>();
 
     private Session() { }
 
@@ -40,7 +39,7 @@ public class Session : AggregateRoot<SessionId>
             throw new InvalidOperationException("Cannot start a match in a closed session.");
 
         var match = Match.Create(Id, gameId, gameSlug, players);
-        _matches.Add(match);
+        Matches.Add(match);
         Raise(new MatchStartedEvent(match.Id, Id, gameSlug));
         return match;
     }
@@ -68,6 +67,6 @@ public class Session : AggregateRoot<SessionId>
     }
 
     private Match GetMatch(MatchId matchId) =>
-        _matches.FirstOrDefault(m => m.Id == matchId)
+        Matches.FirstOrDefault(m => m.Id == matchId)
         ?? throw new InvalidOperationException($"Match {matchId.Value} not found in session.");
 }

@@ -15,8 +15,8 @@ public class PlayerRepository(CompanionDbContext db) : IPlayerRepository
         CancellationToken ct = default
     )
     {
-        var idValues = ids.Select(id => id.Value).ToList();
-        return await db.Players.Where(p => idValues.Contains(p.Id.Value)).ToListAsync(ct);
+        var idList = ids.ToList();
+        return await db.Players.Where(p => idList.Contains(p.Id)).ToListAsync(ct);
     }
 
     public async Task AddAsync(Player player, CancellationToken ct = default) =>

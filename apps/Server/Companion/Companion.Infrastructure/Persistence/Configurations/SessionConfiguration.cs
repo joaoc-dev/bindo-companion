@@ -27,9 +27,7 @@ public class SessionConfiguration : IEntityTypeConfiguration<Session>
 
         builder.Property(s => s.Status).HasConversion<string>().HasMaxLength(20);
 
-        builder.HasMany<Match>("_matches").WithOne().HasForeignKey(m => m.SessionId);
-
-        builder.Navigation("_matches").UsePropertyAccessMode(PropertyAccessMode.Field);
+        builder.HasMany(s => s.Matches).WithOne().HasForeignKey(m => m.SessionId);
 
         builder.Ignore(s => s.DomainEvents);
     }

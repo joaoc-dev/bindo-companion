@@ -1,3 +1,4 @@
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Companion.SkullKing.Infrastructure.Persistence.Documents;
@@ -5,6 +6,7 @@ namespace Companion.SkullKing.Infrastructure.Persistence.Documents;
 internal class SkullKingMatchDocument
 {
     [BsonId]
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid Id { get; set; }
     public int PlayerCount { get; set; }
     public int TotalRounds { get; set; }
@@ -13,6 +15,7 @@ internal class SkullKingMatchDocument
 
 internal class RoundDocument
 {
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid Id { get; set; }
     public int RoundNumber { get; set; }
     public string Status { get; set; } = string.Empty;
@@ -21,7 +24,10 @@ internal class RoundDocument
 
 internal class RoundEntryDocument
 {
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid Id { get; set; }
+
+    [BsonGuidRepresentation(GuidRepresentation.Standard)]
     public Guid PlayerId { get; set; }
     public int Bid { get; set; }
     public int? TricksWon { get; set; }

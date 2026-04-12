@@ -25,8 +25,8 @@ public class MatchConfiguration : IEntityTypeConfiguration<Match>
 
         builder.Property(m => m.Status).HasConversion<string>().HasMaxLength(20);
 
-        builder.OwnsMany<MatchPlayer>(
-            "_players",
+        builder.OwnsMany(
+            m => m.Players,
             mp =>
             {
                 mp.ToTable("match_players");

@@ -2,13 +2,52 @@ using Aspire.Hosting.ApplicationModel;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
+// Stable host port + credentials so `dotnet ef` and GUI clients match appsettings.Development.json.
+// Port 5433 avoids colliding with a PostgreSQL service already bound to 5432 on the machine.
+// Pass user/password into AddPostgres so the server never uses Aspire's random default password.
+// Persistent lifetime: some container runtimes (e.g. Rancher Desktop) fail the AppHost Npgsql health
+// probe for session-scoped containers so the dashboard stays "Unhealthy" even when PG logs look fine.
+// WithDataVolume: data survives restarts; POSTGRES_PASSWORD applies only on first init — if you change
+// credentials or inherit a bad volume, `docker volume rm bindo-companion-postgres` once.
+// Parameter names avoid "postgres-password": Aspire may have persisted a generated password
+// in AppHost user secrets under Parameters:postgres-password, which overrides AddParameter defaults.
+var postgresUsername = builder.AddParameter(
+    "bindo-postgres-username",
+    "postgres",
+    publishValueAsDefault: false,
+    secret: false
+);
+var postgresPassword = builder.AddParameter(
+    "bindo-postgres-password",
+    "postgres",
+    publishValueAsDefault: false,
+    secret: false
+);
+
 var postgres = builder
-    .AddPostgres("postgres")
+    .AddPostgres("postgres", postgresUsername, postgresPassword, port: 5434)
+    .WithLifetime(ContainerLifetime.Persistent)
     .WithDataVolume("bindo-companion-postgres")
     .WithPgAdmin();
 var db = postgres.AddDatabase("companion");
 
-var mongo = builder.AddMongoDB("skull-king-mongo").WithDataVolume("bindo-companion-mongo");
+var mongoUsername = builder.AddParameter(
+    "bindo-mongo-username",
+    "admin",
+    publishValueAsDefault: false,
+    secret: false
+);
+var mongoPassword = builder.AddParameter(
+    "bindo-mongo-password",
+    "admin",
+    publishValueAsDefault: false,
+    secret: false
+);
+
+var mongo = builder
+    .AddMongoDB("skull-king-mongo", port: 27017, userName: mongoUsername, password: mongoPassword)
+    .WithLifetime(ContainerLifetime.Persistent)
+    .WithDataVolume("bindo-companion-mongo");
 
 var companionApi = builder
     .AddProject<Projects.Companion_Presentation>("companion-api")

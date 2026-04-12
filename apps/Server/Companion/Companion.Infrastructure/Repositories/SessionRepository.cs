@@ -8,10 +8,16 @@ namespace Companion.Infrastructure.Repositories;
 public class SessionRepository(CompanionDbContext db) : ISessionRepository
 {
     public Task<Session?> GetByIdAsync(SessionId id, CancellationToken ct = default) =>
-        db.Sessions.Include("_matches").FirstOrDefaultAsync(s => s.Id == id, ct);
+        db
+            .Sessions.Include(s => s.Matches)
+                .ThenInclude(m => m.Players)
+            .FirstOrDefaultAsync(s => s.Id == id, ct);
 
     public Task<Session?> GetByPinAsync(SessionPin pin, CancellationToken ct = default) =>
-        db.Sessions.Include("_matches").FirstOrDefaultAsync(s => s.Pin.Value == pin.Value, ct);
+        db
+            .Sessions.Include(s => s.Matches)
+                .ThenInclude(m => m.Players)
+            .FirstOrDefaultAsync(s => s.Pin.Value == pin.Value, ct);
 
     public async Task AddAsync(Session session, CancellationToken ct = default) =>
         await db.Sessions.AddAsync(session, ct);

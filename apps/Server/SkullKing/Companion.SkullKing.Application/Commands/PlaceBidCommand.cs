@@ -20,6 +20,9 @@ public class PlaceBidCommandHandler(ISkullKingMatchRepository repository)
                 $"SkullKing match {request.MatchId.Value} not found."
             );
 
+        if (!match.Rounds.Any(r => r.RoundNumber == request.RoundNumber))
+            match.OpenRound(request.RoundNumber);
+
         var bid = Bid.Of(request.Bid, request.RoundNumber);
         match.PlaceBid(request.RoundNumber, request.PlayerId, bid);
         await repository.UpdateAsync(match, ct);

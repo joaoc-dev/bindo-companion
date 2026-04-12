@@ -13,8 +13,7 @@ public class Match : Entity<MatchId>
     public DateTimeOffset StartedAt { get; private set; }
     public DateTimeOffset? CompletedAt { get; private set; }
 
-    private readonly List<MatchPlayer> _players = [];
-    public IReadOnlyList<MatchPlayer> Players => _players.AsReadOnly();
+    public ICollection<MatchPlayer> Players { get; private set; } = new List<MatchPlayer>();
 
     private Match() { }
 
@@ -37,7 +36,7 @@ public class Match : Entity<MatchId>
 
         var seat = 1;
         foreach (var (playerId, displayName) in players)
-            match._players.Add(new MatchPlayer(playerId, displayName, seat++));
+            match.Players.Add(new MatchPlayer(playerId, displayName, seat++));
 
         return match;
     }
