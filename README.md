@@ -11,7 +11,7 @@ To run the app
 
 - ⚛️ react 19? UI
 - 🧩 Composable utility classes by Tailwind
-- 🎨 Customized Shadcn UI components
+- 🎨 Shadcn UI components
 - 🌐 microservices with dot net c# minimal apis
   - clean architecture, modern patterns, ddd, mediatr + cqrs
 - client api generation with orval
@@ -24,9 +24,12 @@ To run the app
 - ⚙️ Continuous Integration powered by GitHub Actions
   - Type-checking, linting, dependency checks
 
-
 ## 🚀 Getting Started (Development)
 
 ```
 aspire run
 ```
+
+## Notes
+
+(`apps/Client/Companion.WebApp/src/components/ui` is reserved for shadcn CLI output; ESLint ignores that folder so upstream styles stay unchanged)

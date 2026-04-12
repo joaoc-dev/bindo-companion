@@ -12,6 +12,7 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "paths": {
+      "@/*": ["./src/*"],
       "@bindo/api-client/*": ["../../../packages/api-client/*"]
     },
     "allowImportingTsExtensions": true,

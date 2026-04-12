@@ -14,7 +14,8 @@ export default antfu({
     css: true,
   },
 
-  ignores: ['dist'],
+  // Match both app-relative paths and repo-root paths (lint-staged passes the latter).
+  ignores: ['dist', '**/src/components/ui/**'],
 }, {
   rules: {
     'node/prefer-global/process': 'off',
