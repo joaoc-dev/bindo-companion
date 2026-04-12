@@ -9,7 +9,10 @@ public class Player : AggregateRoot<PlayerId>
     public Guid? UserId { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; }
 
-    private Player() { DisplayName = string.Empty; }
+    private Player()
+    {
+        DisplayName = string.Empty;
+    }
 
     public static Player CreateAnonymous(string displayName)
     {
@@ -20,7 +23,7 @@ public class Player : AggregateRoot<PlayerId>
             Id = PlayerId.New(),
             DisplayName = displayName,
             IsAnonymous = true,
-            CreatedAt = DateTimeOffset.UtcNow
+            CreatedAt = DateTimeOffset.UtcNow,
         };
     }
 

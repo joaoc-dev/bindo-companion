@@ -19,15 +19,17 @@ public class StartMatchCommandHandler(
     IGameDefinitionRepository games,
     IPlayerRepository players,
     IUnitOfWork uow,
-    IPublisher publisher)
-    : IRequestHandler<StartMatchCommand, MatchId>
+    IPublisher publisher
+) : IRequestHandler<StartMatchCommand, MatchId>
 {
     public async Task<MatchId> Handle(StartMatchCommand request, CancellationToken ct)
     {
-        var session = await sessions.GetByIdAsync(request.SessionId, ct)
+        var session =
+            await sessions.GetByIdAsync(request.SessionId, ct)
             ?? throw new InvalidOperationException($"Session {request.SessionId.Value} not found.");
 
-        var game = await games.GetBySlugAsync(request.GameSlug, ct)
+        var game =
+            await games.GetBySlugAsync(request.GameSlug, ct)
             ?? throw new InvalidOperationException($"Game '{request.GameSlug}' not found.");
 
         var playerList = await players.GetByIdsAsync(request.PlayerIds, ct);

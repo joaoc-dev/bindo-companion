@@ -9,7 +9,8 @@ public class MatchStartedEventHandler : INotificationHandler<MatchStartedEvent>
 
     public async Task Handle(MatchStartedEvent notification, CancellationToken ct)
     {
-        if (notification.GameSlug != Slug) return;
+        if (notification.GameSlug != Slug)
+            return;
 
         // PlayerCount comes from the session match — we need it here.
         // For now we pass it via a separate command after StartMatch provides it.

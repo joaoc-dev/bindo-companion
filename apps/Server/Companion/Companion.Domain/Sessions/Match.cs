@@ -13,12 +13,16 @@ public class Match : Entity<MatchId>
     public DateTimeOffset StartedAt { get; private set; }
     public DateTimeOffset? CompletedAt { get; private set; }
 
-    private readonly List<MatchPlayer> _players = [];
-    public IReadOnlyList<MatchPlayer> Players => _players.AsReadOnly();
+    public ICollection<MatchPlayer> Players { get; private set; } = new List<MatchPlayer>();
 
     private Match() { }
 
-    internal static Match Create(SessionId sessionId, GameId gameId, string gameSlug, IEnumerable<(PlayerId PlayerId, string DisplayName)> players)
+    internal static Match Create(
+        SessionId sessionId,
+        GameId gameId,
+        string gameSlug,
+        IEnumerable<(PlayerId PlayerId, string DisplayName)> players
+    )
     {
         var match = new Match
         {
@@ -27,12 +31,12 @@ public class Match : Entity<MatchId>
             GameId = gameId,
             GameSlug = gameSlug,
             Status = MatchStatus.InProgress,
-            StartedAt = DateTimeOffset.UtcNow
+            StartedAt = DateTimeOffset.UtcNow,
         };
 
         var seat = 1;
         foreach (var (playerId, displayName) in players)
-            match._players.Add(new MatchPlayer(playerId, displayName, seat++));
+            match.Players.Add(new MatchPlayer(playerId, displayName, seat++));
 
         return match;
     }

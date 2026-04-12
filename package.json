@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "prepare": "husky && (dotnet tool restore || exit 0)",
+    "generate:api": "orval --config orval.config.ts",
+    "generate:api:file": "cross-env ORVAL_USE_FILE=true orval --config orval.config.ts",
+    "watch:api": "tsx scripts/watch-api.ts"
+  },
+  "lint-staged": {
+    "**/*.{cs,csproj}": "dotnet csharpier format",
+    "apps/Client/Companion.WebApp/**/*.{ts,tsx,css}": "./apps/Client/Companion.WebApp/node_modules/.bin/eslint --fix --no-warn-ignored --config ./apps/Client/Companion.WebApp/eslint.config.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.17",
+    "cross-env": "^7.0.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "orval": "7.17.0",
+    "tsx": "^4.19.2",
+    "typescript": "~5.9.3"
+  }
+}

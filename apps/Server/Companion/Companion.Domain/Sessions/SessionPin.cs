@@ -11,9 +11,7 @@ public record SessionPin
 
     public static SessionPin Generate()
     {
-        var chars = Enumerable.Range(0, 6)
-            .Select(_ => Chars[_rng.Next(Chars.Length)])
-            .ToArray();
+        var chars = Enumerable.Range(0, 6).Select(_ => Chars[_rng.Next(Chars.Length)]).ToArray();
         return new SessionPin(new string(chars));
     }
 

@@ -36,9 +36,31 @@
 **/.env.*.local
 
 ######################################################################
+# Orval / repo-root Node (OpenAPI client generation)
+######################################################################
+
+# OpenAPI polling / watch scripts may write this (see patchnuts-style workflows).
+.openapi-cache.json
+**/.openapi-cache.json
+
+# Generated API client (orval); regenerate with `npm run generate:api` (APIs must be up).
+packages/api-client/api/generated/
+
+# OpenAPI spec snapshots written by `watch:api` (Aspire api-watcher) or `tsx scripts/export-openapi.ts`.
+openapi-companion.json
+openapi-skull-king.json
+
+**/.eslintcache
+
+######################################################################
 # OS noise
 ######################################################################
 
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+######################################################################
+# MCP
+######################################################################
+.playwright-mcp

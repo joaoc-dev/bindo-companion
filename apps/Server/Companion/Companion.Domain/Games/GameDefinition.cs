@@ -10,9 +10,18 @@ public class GameDefinition : AggregateRoot<GameId>
     public int MaxPlayers { get; private set; }
     public bool IsActive { get; private set; }
 
-    private GameDefinition() { Slug = string.Empty; DisplayName = string.Empty; }
+    private GameDefinition()
+    {
+        Slug = string.Empty;
+        DisplayName = string.Empty;
+    }
 
-    public static GameDefinition Create(string slug, string displayName, int minPlayers, int maxPlayers)
+    public static GameDefinition Create(
+        string slug,
+        string displayName,
+        int minPlayers,
+        int maxPlayers
+    )
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(slug);
         ArgumentException.ThrowIfNullOrWhiteSpace(displayName);
@@ -24,7 +33,7 @@ public class GameDefinition : AggregateRoot<GameId>
             DisplayName = displayName,
             MinPlayers = minPlayers,
             MaxPlayers = maxPlayers,
-            IsActive = true
+            IsActive = true,
         };
     }
 

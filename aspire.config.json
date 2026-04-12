@@ -1,5 +1,5 @@
 {
   "appHost": {
-    "path": "bindo-companion.AppHost/bindo-companion.AppHost.csproj"
+    "path": "AppHost/AppHost.csproj"
   }
 }

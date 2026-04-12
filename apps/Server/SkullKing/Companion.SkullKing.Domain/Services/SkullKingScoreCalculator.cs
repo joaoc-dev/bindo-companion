@@ -9,7 +9,12 @@ public interface ISkullKingScoreCalculator
 
 public class SkullKingScoreCalculator : ISkullKingScoreCalculator
 {
-    public RoundScore Calculate(Bid bid, TrickCount tricksWon, BonusCollection bonuses, int roundNumber)
+    public RoundScore Calculate(
+        Bid bid,
+        TrickCount tricksWon,
+        BonusCollection bonuses,
+        int roundNumber
+    )
     {
         // Bid 0
         if (bid.Value == 0)
