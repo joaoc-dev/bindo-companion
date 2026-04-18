@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="3.7.1" />
     <ProjectReference Include="..\Companion.SkullKing.Application\Companion.SkullKing.Application.csproj" />
     <ProjectReference Include="..\Companion.SkullKing.Infrastructure\Companion.SkullKing.Infrastructure.csproj" />
   </ItemGroup>
